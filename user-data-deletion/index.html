@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Data Deletion Policy — Circle of Influence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1F0EC;
+    --card:#E4E2DC;
+    --card-line:rgba(26,26,26,0.10);
+    --ink:#1A1A1A;
+    --ink-soft:#84888F;
+    --gold:#A6392B;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Work Sans', sans-serif; font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  /* ---- masthead ---- */
+  .doc-head{padding:56px 0 8px; border-bottom:1px solid var(--card-line); margin-bottom:40px;}
+  .back{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);
+    text-decoration:none; display:inline-block; margin-bottom:20px;
+  }
+  .back:hover{color:var(--gold);}
+  .doc-head h1{
+    font-family:'Fraunces', serif; font-weight:600; font-size:42px; line-height:1.08;
+    letter-spacing:-.01em; margin:0 0 14px;
+  }
+  .doc-meta{color:var(--ink-soft); font-size:15.5px; margin:0 0 32px;}
+
+  /* ---- body ---- */
+  main{padding-bottom:24px;}
+  main h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:27px; line-height:1.15;
+    letter-spacing:-.01em; margin:48px 0 14px; padding-top:8px;
+  }
+  main h3{
+    font-family:'Fraunces', serif; font-weight:600; font-size:19px;
+    margin:30px 0 10px;
+  }
+  main p{margin:0 0 16px;}
+  main ul{margin:0 0 18px; padding-left:22px;}
+  main li{margin-bottom:9px;}
+  main strong{font-weight:600;}
+  main a{color:var(--gold); font-weight:600; text-decoration:none;}
+  main a:hover{text-decoration:underline;}
+  main code{
+    font-family:'JetBrains Mono', monospace; font-size:14px;
+    background:var(--card); padding:2px 6px; border-radius:5px;
+  }
+  main hr{
+    border:0; height:2px; margin:44px 0;
+    background:repeating-linear-gradient(90deg, var(--ink-soft) 0 8px, transparent 8px 16px);
+    opacity:.5;
+  }
+
+  /* ---- footer, matching the landing page ---- */
+  footer{
+    padding:48px 28px 56px; text-align:center; color:var(--ink-soft); font-size:13.5px;
+    border-top:1px solid var(--card-line); margin-top:56px;
+  }
+  footer .footer-entity{margin:0 0 14px;}
+  footer .footer-entity b{color:var(--ink); font-weight:600;}
+  footer .footer-links{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:0 0 18px;}
+  footer .footer-links a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--card-line);}
+  footer .footer-links a:hover{color:var(--gold); border-bottom-color:var(--gold);}
+
+  @media (max-width:640px){
+    .doc-head h1{font-size:32px;}
+    main h2{font-size:23px;}
+    body{font-size:16.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="doc-head">
+    <a class="back" href="../">&larr; Circle of Influence</a>
+    <h1>User Data Deletion Policy</h1>
+    <p class="doc-meta">Effective date: August 23, 2026 &middot; Operated by BarcodeDAO, a Wyoming company, trading as Circle of Influence</p>
+  </header>
+  <main>
+    <p>This policy explains how users of Circle of Influence ("the Service") can request deletion of their account and personal data, and how BarcodeDAO, trading as Circle of Influence ("we," "us"), handles those requests.</p>
+    <p><strong>If you are here to delete Instagram data or disconnect an Instagram account, see <a href="#8-instagram-data-deletion">Section 8: Instagram Data Deletion</a>.</strong> Disconnecting takes effect immediately and requires no request to us.</p>
+    <h2 id="1-what-data-we-collect">1. What Data We Collect</h2>
+    <p>We collect the following categories of personal data:</p>
+    <ul>
+    <li>Name</li>
+    <li>Email address</li>
+    <li>Account activity and usage metadata associated with the Service</li>
+    <li><strong>Connected account data</strong> — where you connect an Instagram account, the access token issued by Instagram, your Instagram user ID and username, and the identifier of each post published on your behalf (see Section 8)</li>
+    <li><strong>Payment information</strong> (such as card details or bank account information), collected and stored on our behalf by our third-party payment processor, Stripe, along with related billing records we retain directly (invoice history, transaction amounts, and dates)</li>
+    </ul>
+    <p>If your organization has enabled additional integrations or features that collect further data, those categories are described in our <a href="../privacy-policy/">Privacy Policy</a>.</p>
+    <h2 id="2-how-to-request-deletion">2. How to Request Deletion</h2>
+    <p>You can request deletion of your account and personal data by any of the following methods:</p>
+    <ul>
+    <li>Emailing <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a> with the subject line "Data Deletion Request"</li>
+    <li>Removing our app in Instagram, which disconnects the account and deletes its access token (see Section 8)</li>
+    <li>Using the <strong>Disconnect</strong> option in the Service, where the publishing console is available to you</li>
+    </ul>
+    <p>We may ask you to verify your identity before processing a request, to prevent unauthorized deletion of someone else's account.</p>
+    <h2 id="3-what-happens-when-you-request-deletion">3. What Happens When You Request Deletion</h2>
+    <ol>
+    <li><strong>Identity verification</strong> — confirming the request came from the account owner or an authorized admin. Within 2 business days.</li>
+    <li><strong>Account deactivation</strong> — login access disabled, data no longer used for active processing. Immediately upon verification.</li>
+    <li><strong>Deletion of personal data</strong> (name, email, account content, and any connected account data including access tokens) from production systems. Within 30 days of verified request.</li>
+    <li><strong>Removal from backups and archival systems.</strong> Within 90 days, as backups cycle out.</li>
+    </ol>
+    <h2 id="4-data-we-may-retain">4. Data We May Retain</h2>
+    <p>Even after deletion, we may retain limited data where necessary to:</p>
+    <ul>
+    <li>Comply with legal, tax, or regulatory obligations</li>
+    <li>Resolve disputes or enforce our agreements</li>
+    <li>Maintain aggregated or de-identified data that cannot reasonably be linked back to you</li>
+    </ul>
+    <p>Any such retained data will be limited to what is necessary and will not be used for active service delivery or marketing.</p>
+    <h2 id="5-payment-billing-records">5. Payment &amp; Billing Records</h2>
+    <p>Full payment card details are held by our payment processor, not by us directly, and are deleted or de-linked from your account according to that processor's own data retention practices. However, billing records tied to completed transactions — such as invoice history, amounts charged, and dates — are retained by us for 7 years after account deletion, in order to comply with financial recordkeeping, tax, and audit obligations. These records are kept separately from your active account data, are not used for any purpose other than legal and accounting compliance, and are not restored to an active account.</p>
+    <h2 id="6-deletion-for-teamorganization-accounts">6. Deletion for Team/Organization Accounts</h2>
+    <p>If your account is part of an organization's subscription, an authorized admin of that organization may need to confirm the deletion request, since account data may be linked to the organization's workspace. Individual users may still request removal of their personal information (name, email) from an organization's workspace by contacting <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a>.</p>
+    <h2 id="7-your-state-privacy-rights-us">7. Your State Privacy Rights (U.S.)</h2>
+    <p>Depending on your state of residence, you may have additional statutory rights regarding your personal data, including the right to know what personal data we hold about you, the right to correct inaccurate data, and the right to delete your personal data — separate from and in addition to the process described in this policy. These rights currently exist, in varying forms, under laws including the California Consumer Privacy Act (CCPA/CPRA) and similar comprehensive privacy laws in states such as Virginia, Colorado, Connecticut, Texas, and others as they take effect.</p>
+    <p>We do not sell or share your personal data for cross-context behavioral advertising. If this changes, we will provide a mechanism to opt out as required by applicable law. To exercise any state-specific privacy right, contact us at <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a>; we will not discriminate against you for exercising these rights.</p>
+    <h2 id="8-instagram-data-deletion">8. Instagram Data Deletion</h2>
+    <h3 id="what-instagram-data-we-hold">What Instagram data we hold</h3>
+    <p>When you connect an Instagram professional account to the Service, we store only:</p>
+    <ul>
+    <li>An <strong>access token</strong> issued by Instagram, which authorizes us to publish content on your behalf</li>
+    <li>Your <strong>Instagram user ID</strong>, <strong>username</strong>, and account type</li>
+    <li>The <strong>identifier of each post</strong> we publish to your account, and the time it was published</li>
+    </ul>
+    <p>We never receive or store your Instagram password. We do not store your existing posts, comments, direct messages, follower information, or engagement, insights, or analytics metrics — the Service does not have permission to access them.</p>
+    <h3 id="how-to-delete-it">How to delete it</h3>
+    <p>You may end our access and delete this data by any of the following routes. You do not need to use more than one.</p>
+    <p><strong>1. Revoke access in Instagram.</strong> In the Instagram app, go to <strong>Settings → Apps and Websites → Active</strong>, and remove Circle of Influence. This invalidates the token from Meta's side, so it cannot be used even if a copy remains in one of our backups. This route is available to every connected account.</p>
+    <p><strong>2. Disconnect in the Service</strong>, where the publishing console is available to you. Selecting Disconnect deletes the stored access token immediately and ends our ability to publish to that account.</p>
+    <p><strong>3. Email us</strong> at <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a> with the subject line "Data Deletion Request". We action deletion requests within 30 days and confirm by reply to the address on file.</p>
+    <h3 id="timeframes">Timeframes</h3>
+    <p>The <strong>access token</strong> is deleted from our production systems immediately on disconnection, or within 30 days of a verified request under Section 3.</p>
+    <p>Your <strong>Instagram user ID, username, and published post identifiers</strong> are deleted from production systems within 30 days of a verified deletion request, and removed from backups within 90 days as backups cycle out, per Section 3.</p>
+    <p>Content already published to your Instagram account remains on Instagram. Instagram's API does not permit us to delete published posts, so removing them is done in the Instagram app.</p>
+    <h2 id="9-third-party-processors">9. Third Party Processors</h2>
+    <p>Where we use third-party service providers to process account data on our behalf (e.g., hosting, analytics, email delivery), we will instruct those providers to delete corresponding personal data in line with the timeframes above, consistent with their own data processing agreements with us.</p>
+    <h2 id="10-confirmation">10. Confirmation</h2>
+    <p>Once deletion is complete, we will send confirmation to the email address on file (or an alternate address you provide, if the primary one is being deleted).</p>
+    <h2 id="11-contact">11. Contact</h2>
+    <p>Questions about this policy or an active deletion request can be sent to <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a>.</p>
+  </main>
+</div>
+
+<footer>
+  <p class="footer-entity">Circle of Influence is a service of <b>BarcodeDAO</b></p>
+  <nav class="footer-links">
+    <a href="../privacy-policy/">Privacy policy</a>
+    <a href="../terms-of-service/">Terms of service</a>
+    <a href="../user-data-deletion/">Delete your data</a>
+    <a href="mailto:hello@circleofinfluence.io">Contact</a>
+  </nav>
+  <p>&copy; 2026 BarcodeDAO. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle of Influence — Publish in Seconds, Not Hours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1F0EC;
+    --card:#E4E2DC;
+    --card-line:rgba(26,26,26,0.10);
+    --ink:#1A1A1A;
+    --ink-soft:#84888F;
+    --gold:#A6392B;
+    --radius:18px;
+    --max:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  a{color:inherit;}
+  svg{display:block;}
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Work Sans', sans-serif; font-weight:600; font-size:15px;
+    padding:13px 24px; border-radius:999px;
+    text-decoration:none; border:2px solid var(--ink);
+    cursor:pointer; transition:transform .12s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--gold); color:#fff; border-color:var(--gold);}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-primary:active{transform:translateY(0) scale(.98);}
+  .btn-ghost{background:transparent; color:var(--ink);}
+  .btn-ghost:hover{background:rgba(30,42,54,0.06);}
+
+  /* ---- Hero ---- */
+  .hero{
+    max-width:var(--max); margin:0 auto; padding:80px 28px 50px;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:40px; align-items:center;
+  }
+  .hero h1{font-size:52px; margin:16px 0 20px;}
+  .hero h1 em{font-style:italic; color:var(--gold);}
+  .hero p.sub{font-size:19px; color:var(--ink-soft); max-width:520px; margin-bottom:30px;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+
+  .stamp-wrap{display:flex; justify-content:center;}
+  .stamp{
+    width:230px; height:230px;
+    animation:stampIn .6s cubic-bezier(.2,.9,.25,1) both;
+  }
+  @keyframes stampIn{
+    0%{transform:scale(1.5) rotate(-14deg); opacity:0;}
+    70%{transform:scale(0.95) rotate(-8deg); opacity:1;}
+    100%{transform:scale(1) rotate(-8deg); opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stamp{animation:none;}
+  }
+
+  /* ---- Section shell ---- */
+  section{padding:64px 0;}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 42px;}
+  .section-head h2{font-size:36px; margin-top:12px;}
+  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:17px;}
+
+  /* ---- What you get ---- */
+  .get-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;
+    max-width:900px; margin:0 auto;
+  }
+  .get-card{
+    background:var(--card); border-radius:14px;
+    padding:24px 22px;
+  }
+  .get-card .tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:600;
+    letter-spacing:.08em; color:var(--gold); text-transform:uppercase;
+  }
+  .get-card h4{font-family:'Fraunces', serif; font-size:19px; font-weight:600; margin:8px 0 6px;}
+  .get-card p{color:var(--ink-soft); font-size:15px; margin:0;}
+
+  /* ---- Steps ---- */
+  .route{
+    max-width:960px; margin:56px auto 0; position:relative;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  }
+  .route::before{
+    content:'';
+    position:absolute; top:26px; left:8%; right:8%; height:2px;
+    background:repeating-linear-gradient(90deg, var(--ink-soft) 0 8px, transparent 8px 16px);
+    opacity:.5;
+  }
+  .stop{position:relative; text-align:center;}
+  .stop .num{
+    width:52px; height:52px; border-radius:50%; background:var(--paper);
+    border:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:700; font-size:18px; margin:0 auto 16px; position:relative; z-index:2;
+  }
+  .stop h4{font-family:'Fraunces',serif; font-size:18px; margin-bottom:8px;}
+  .stop p{color:var(--ink-soft); font-size:14.5px; margin:0; max-width:230px; margin-inline:auto;}
+
+  .cta-center{text-align:center; margin-top:44px;}
+
+  /* ---- Book a demo ---- */
+  .demo-card{
+    max-width:760px; margin:0 auto; background:var(--card);
+    border-radius:var(--radius); padding:52px 40px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .demo-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:6px;
+    background:repeating-linear-gradient(90deg, var(--ink-soft) 0 14px, transparent 14px 22px);
+    opacity:.5;
+  }
+  .demo-card h2{font-size:28px; margin-bottom:10px;}
+  .demo-card p{color:var(--ink-soft); max-width:480px; margin:0 auto 26px; font-size:16px;}
+
+  /* ---- FAQ ---- */
+  .faq-list{max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:12px;}
+  .faq-item{
+    background:var(--card); border-radius:12px;
+    overflow:hidden;
+  }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:18px 22px; font-family:'Work Sans',sans-serif; font-weight:600; font-size:16px;
+    color:var(--ink); display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  .faq-q .plus{
+    font-family:'JetBrains Mono',monospace; font-size:18px; color:var(--gold);
+    transition:transform .2s ease; flex-shrink:0;
+  }
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    padding:0 22px;
+  }
+  .faq-a p{color:var(--ink-soft); font-size:15.5px; margin:0 0 20px;}
+
+  /* ---- About ---- */
+  .about-card{
+    max-width:760px; margin:0 auto; background:var(--card);
+    border-radius:var(--radius); padding:40px 42px;
+  }
+  .about-card p{color:var(--ink-soft); font-size:16.5px; margin:0 0 16px;}
+  .about-card p:last-child{margin-bottom:0;}
+  .about-card b{color:var(--ink); font-weight:600;}
+  .about-card .about-contact{
+    margin-top:24px; padding-top:20px; font-size:15.5px;
+    border-top:1px solid var(--card-line);
+  }
+  .about-card a{color:var(--gold); font-weight:600; text-decoration:none;}
+
+  /* ---- Footer ---- */
+  footer{
+    padding:40px 28px 50px; text-align:center; color:var(--ink-soft); font-size:13.5px;
+  }
+  footer .footer-entity{margin:0 0 14px;}
+  footer .footer-entity b{color:var(--ink); font-weight:600;}
+  footer .footer-links{
+    display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:0 0 18px;
+  }
+  footer .footer-links a{
+    color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--card-line);
+  }
+  footer .footer-links a:hover{color:var(--gold); border-bottom-color:var(--gold);}
+
+  @media (max-width: 860px){
+    .hero{grid-template-columns:1fr; text-align:center;}
+    .hero p.sub{margin-inline:auto;}
+    .hero-ctas{justify-content:center;}
+    .stamp-wrap{order:-1;}
+    .stamp{width:170px; height:170px;}
+    .get-grid{grid-template-columns:1fr;}
+    .route{grid-template-columns:1fr; gap:36px;}
+    .route::before{display:none;}
+    .hero h1{font-size:36px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="eyebrow">Content Publishing System</span>
+    <h1>Publish your content in <em>seconds</em>, not hours</h1>
+    <p class="sub">Circle of Influence takes your content and publishes it across every platform that matters, with a real person checking every post before it goes live. We handle the busywork. You take your time back.</p>
+    <div class="hero-ctas">
+      <a href="https://airtable.com/appYt5d3iPTwzM2jC/pagPe4VCDQDHwVVZo/form" class="btn btn-primary">Request a Demo</a>
+    </div>
+  </div>
+  <div class="stamp-wrap">
+    <svg class="stamp" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="arcTop" d="M 30 110 A 80 80 0 0 1 190 110" />
+        <path id="arcBottom" d="M 40 140 A 70 70 0 0 0 180 140" />
+      </defs>
+      <circle cx="110" cy="110" r="98" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="110" cy="110" r="82" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="3 5"/>
+      <text font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" letter-spacing="2" fill="var(--ink)">
+        <textPath href="#arcTop" startOffset="2%">CIRCLE OF INFLUENCE ·</textPath>
+      </text>
+      <text font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" letter-spacing="2" fill="var(--gold)">
+        <textPath href="#arcBottom" startOffset="8%">PUBLISHED FAST</textPath>
+      </text>
+      <line x1="45" y1="70" x2="175" y2="150" stroke="var(--gold)" stroke-width="2.5" opacity="0.75"/>
+      <line x1="45" y1="150" x2="175" y2="70" stroke="var(--gold)" stroke-width="2.5" opacity="0.75"/>
+      <circle cx="110" cy="110" r="34" fill="none" stroke="var(--ink)" stroke-width="2"/>
+    </svg>
+  </div>
+</section>
+
+<!-- WHAT YOU GET / HOW YOU GET IT -->
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>Four steps, then it&rsquo;s live</h2>
+    </div>
+    <div class="route">
+      <div class="stop">
+        <div class="num">1</div>
+        <h4>Connect</h4>
+        <p>You link your own Instagram account once, so we can post on your behalf.</p>
+      </div>
+      <div class="stop">
+        <div class="num">2</div>
+        <h4>Upload</h4>
+        <p>Drop your content into a shared folder. We write captions in your voice.</p>
+      </div>
+      <div class="stop">
+        <div class="num">3</div>
+        <h4>Review</h4>
+        <p>Nothing goes live without a final human check.</p>
+      </div>
+      <div class="stop">
+        <div class="num">4</div>
+        <h4>Publish</h4>
+        <p>Once approved, it's scheduled, posted, done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK A DEMO -->
+<section id="demo-form">
+  <div class="wrap">
+    <div class="demo-card">
+      <span class="eyebrow">Want a Closer Look?</span>
+      <h2>Request a Demo</h2>
+      <p>No pressure, no sales pitch. Just a real look at how it works, and whether it's right for you.</p>
+      <a href="https://airtable.com/appYt5d3iPTwzM2jC/pagPe4VCDQDHwVVZo/form" class="btn btn-primary">Request a Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Who We Are</span>
+      <h2>About Circle of Influence</h2>
+    </div>
+    <div class="about-card">
+      <p>Circle of Influence is a content publishing service operated by <b>BarcodeDAO</b>, a company registered in Wyoming, United States.</p>
+      <p>We work with small business owners, creators and independent operators who publish regularly but don&rsquo;t have a marketing team. Clients connect their own Instagram professional account to our system and send us their content. We write the captions, a real person reviews every post, and we publish on their behalf on an agreed schedule.</p>
+      <p>We only ever read the account name and ID needed to confirm we are posting to the right place, and we only publish content the client has approved. We do not read posts, comments, direct messages, followers, or analytics.</p>
+      <p class="about-contact">Questions about how we handle data? Email <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q">What is Circle of Influence?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Circle of Influence is an automated content publishing system built for small businesses and creators. Upload your content and we handle the rest: caption generation tailored to each platform, a human review step, and multi-platform publishing.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Who is Circle of Influence for?<span class="plus">+</span></button>
+        <div class="faq-a"><p>It's built for small business owners, solopreneurs, and independent creators who need to publish content regularly but don't have the time or the team to do it.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How do I get started?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Request a demo. We'll walk you through how it works, learn about your business, and map out the right approach for you.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What platforms does it publish to?<span class="plus">+</span></button>
+        <div class="faq-a"><p>We're starting with Instagram, with TikTok, YouTube Shorts, and LinkedIn on the way.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Do you support integrations with tools I already use?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes. We build around the tools you're already using. Request a demo and we'll talk through your specific setup and what a custom integration could look like for your business.</p></div>
+      </div>
+
+    </div>
+    <p style="text-align:center; color:var(--ink-soft); font-size:15px; margin-top:32px;">Got a question we didn't cover? Reach out to the team at <a href="mailto:hello@circleofinfluence.io" style="color:var(--gold); font-weight:600; text-decoration:none;">hello@circleofinfluence.io</a></p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-entity">Circle of Influence is a service of <b>BarcodeDAO</b></p>
+  <nav class="footer-links">
+    <a href="privacy-policy/">Privacy policy</a>
+    <a href="terms-of-service/">Terms of service</a>
+    <a href="user-data-deletion/">Delete your data</a>
+    <a href="mailto:hello@circleofinfluence.io">Contact</a>
+  </nav>
+  <p>© 2026 BarcodeDAO. All rights reserved.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
