@@ -138,11 +138,6 @@
     border-radius:var(--radius); padding:52px 40px; text-align:center;
     position:relative; overflow:hidden;
   }
-  .demo-card::before{
-    content:''; position:absolute; top:0; left:0; right:0; height:6px;
-    background:repeating-linear-gradient(90deg, var(--ink-soft) 0 14px, transparent 14px 22px);
-    opacity:.5;
-  }
   .demo-card h2{font-size:28px; margin-bottom:10px;}
   .demo-card p{color:var(--ink-soft); max-width:480px; margin:0 auto 26px; font-size:16px;}
 
@@ -168,26 +163,10 @@
   }
   .faq-a p{color:var(--ink-soft); font-size:15.5px; margin:0 0 20px;}
 
-  /* ---- About ---- */
-  .about-card{
-    max-width:760px; margin:0 auto; background:var(--card);
-    border-radius:var(--radius); padding:40px 42px;
-  }
-  .about-card p{color:var(--ink-soft); font-size:16.5px; margin:0 0 16px;}
-  .about-card p:last-child{margin-bottom:0;}
-  .about-card b{color:var(--ink); font-weight:600;}
-  .about-card .about-contact{
-    margin-top:24px; padding-top:20px; font-size:15.5px;
-    border-top:1px solid var(--card-line);
-  }
-  .about-card a{color:var(--gold); font-weight:600; text-decoration:none;}
-
   /* ---- Footer ---- */
   footer{
     padding:40px 28px 50px; text-align:center; color:var(--ink-soft); font-size:13.5px;
   }
-  footer .footer-entity{margin:0 0 14px;}
-  footer .footer-entity b{color:var(--ink); font-weight:600;}
   footer .footer-links{
     display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:0 0 18px;
   }
@@ -258,7 +237,7 @@
       <div class="stop">
         <div class="num">2</div>
         <h4>Upload</h4>
-        <p>Drop your content into a shared folder. We write captions in your voice.</p>
+        <p>Drop your content into a shared folder. We write the captions in your voice.</p>
       </div>
       <div class="stop">
         <div class="num">3</div>
@@ -282,22 +261,6 @@
       <h2>Request a Demo</h2>
       <p>No pressure, no sales pitch. Just a real look at how it works, and whether it's right for you.</p>
       <a href="https://airtable.com/appYt5d3iPTwzM2jC/pagPe4VCDQDHwVVZo/form" class="btn btn-primary">Request a Demo</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Who We Are</span>
-      <h2>About Circle of Influence</h2>
-    </div>
-    <div class="about-card">
-      <p>Circle of Influence is a content publishing service operated by <b>BarcodeDAO</b>, a company registered in Wyoming, United States.</p>
-      <p>We work with small business owners, creators and independent operators who publish regularly but don&rsquo;t have a marketing team. Clients connect their own Instagram professional account to our system and send us their content. We write the captions, a real person reviews every post, and we publish on their behalf on an agreed schedule.</p>
-      <p>We only ever read the account name and ID needed to confirm we are posting to the right place, and we only publish content the client has approved. We do not read posts, comments, direct messages, followers, or analytics.</p>
-      <p class="about-contact">Questions about how we handle data? Email <a href="mailto:hello@circleofinfluence.io">hello@circleofinfluence.io</a></p>
     </div>
   </div>
 </section>
@@ -342,14 +305,13 @@
 </section>
 
 <footer>
-  <p class="footer-entity">Circle of Influence is a service of <b>BarcodeDAO</b></p>
   <nav class="footer-links">
-    <a href="privacy-policy/">Privacy policy</a>
-    <a href="terms-of-service/">Terms of service</a>
-    <a href="user-data-deletion/">Delete your data</a>
+    <a href="https://circleofinfluence.io/privacy-policy/">Privacy policy</a>
+    <a href="https://circleofinfluence.io/terms-of-service/">Terms of service</a>
+    <a href="https://circleofinfluence.io/user-data-deletion/">Delete your data</a>
     <a href="mailto:hello@circleofinfluence.io">Contact</a>
   </nav>
-  <p>© 2026 BarcodeDAO. All rights reserved.</p>
+  <p>© 2026 Circle of Influence. All rights reserved.</p>
 </footer>
 
 <script>
