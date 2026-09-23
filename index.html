@@ -163,6 +163,17 @@
   }
   .faq-a p{color:var(--ink-soft); font-size:15.5px; margin:0 0 20px;}
 
+  /* ---- Demo video ---- */
+  .video-frame{
+    max-width:900px; margin:0 auto;
+    aspect-ratio:16 / 9;
+    background:var(--card); border:1px solid var(--card-line);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  .video-frame video{
+    display:block; width:100%; height:100%;
+    background:var(--paper);
+  }
   /* ---- Footer ---- */
   footer{
     padding:40px 28px 50px; text-align:center; color:var(--ink-soft); font-size:13.5px;
@@ -253,6 +264,26 @@
   </div>
 </section>
 
+<!-- DEMO VIDEO -->
+<section id="demo-video">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">See It In Action</span>
+      <h2>The whole thing, in 30 seconds</h2>
+    </div>
+    <div class="video-frame">
+      <video
+        id="coi-demo"
+        poster="demo-poster.jpg"
+        muted loop playsinline controls preload="metadata"
+        aria-label="Circle of Influence demo: connect your account, upload content, review captions, publish.">
+        <source src="demo-video.mp4" type="video/mp4">
+        <p style="padding:24px;">Your browser can&rsquo;t play embedded video. <a href="demo-video.mp4" style="color:var(--gold); font-weight:600;">Download the demo</a> instead.</p>
+      </video>
+    </div>
+  </div>
+</section>
+
 <!-- BOOK A DEMO -->
 <section id="demo-form">
   <div class="wrap">
@@ -315,6 +346,30 @@
 </footer>
 
 <script>
+  // Play the demo only while it's on screen; never on data the visitor didn't ask to spend.
+  (function(){
+    const video = document.getElementById('coi-demo');
+    if(!video) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(!('IntersectionObserver' in window)) return;
+
+    let userPaused = false;
+    let isOnScreen = false;
+    video.addEventListener('pause', () => { if(!video.ended && isOnScreen) userPaused = true; });
+    video.addEventListener('play', () => { userPaused = false; });
+
+    new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isOnScreen = entry.isIntersecting;
+        if(entry.isIntersecting){
+          if(!userPaused) video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, {threshold: 0.4}).observe(video);
+  })();
+
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
