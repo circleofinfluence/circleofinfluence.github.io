@@ -72,20 +72,19 @@
   .hero h1{font-size:52px; margin:16px 0 20px;}
   .hero h1 em{font-style:italic; color:var(--gold);}
   .hero p.sub{font-size:19px; color:var(--ink-soft); max-width:520px; margin-bottom:0;}
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
-
-  .hero-media{display:flex; flex-direction:column; gap:24px;}
   .hero-video{
     aspect-ratio:16 / 9;
     background:var(--paper);
     border:1px solid var(--card-line);
     border-radius:var(--radius); overflow:hidden;
+    cursor:pointer;
   }
   .hero-video video{
     display:block; width:100%; height:100%;
     background:var(--paper);
     pointer-events:none;
   }
+  .hero-video video::-webkit-media-controls{display:none !important;}
 
   /* ---- Section shell ---- */
   section{padding:64px 0;}
@@ -193,20 +192,15 @@
     <h1>Publish your content in <em>seconds</em>, not hours</h1>
     <p class="sub">Circle of Influence takes your content and publishes it across every platform that matters, with a real person checking every post before it goes live. We handle the busywork. You take your time back.</p>
   </div>
-  <div class="hero-media">
-    <div class="hero-video">
-      <video
-        id="coi-demo"
-        poster="demo-poster.jpg"
-        autoplay muted loop playsinline preload="auto"
-        disablepictureinpicture
-        aria-label="Circle of Influence demo: connect your account, upload content, review captions, publish.">
-        <source src="demo-video.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="hero-ctas">
-      <a href="https://airtable.com/appYt5d3iPTwzM2jC/pagPe4VCDQDHwVVZo/form" class="btn btn-primary">Request a Demo</a>
-    </div>
+  <div class="hero-video">
+    <video
+      id="coi-demo"
+      poster="demo-poster.jpg"
+      autoplay muted loop playsinline preload="auto"
+      disablepictureinpicture
+      aria-label="Circle of Influence demo: connect your account, upload content, review captions, publish.">
+      <source src="demo-video.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
@@ -304,7 +298,7 @@
 </footer>
 
 <script>
-  // Pause the hero demo while it's off screen to save battery and data.
+  // Hero demo: autoplay where allowed, with fallbacks where it isn't.
   (function(){
     const video = document.getElementById('coi-demo');
     if(!video) return;
@@ -314,17 +308,37 @@
       video.pause();
       return;
     }
-    if(!('IntersectionObserver' in window)) return;
 
-    new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
+    const attempt = () => video.play().catch(() => {});
+
+    // iOS Low Power Mode and some data-saver settings block autoplay outright.
+    // In that case, start on the visitor's first interaction anywhere on the page.
+    video.play().catch(() => {
+      const kick = () => { attempt(); cleanup(); };
+      const cleanup = () => {
+        ['touchstart','click','scroll','keydown'].forEach(e =>
+          window.removeEventListener(e, kick));
+      };
+      ['touchstart','click','scroll','keydown'].forEach(e =>
+        window.addEventListener(e, kick, {once:true, passive:true}));
+    });
+
+    // Tapping the video toggles playback, without native controls appearing.
+    const frame = video.closest('.hero-video');
+    if(frame){
+      frame.addEventListener('click', () => {
+        if(video.paused) attempt(); else video.pause();
       });
-    }, {threshold: 0.2}).observe(video);
+    }
+
+    // Pause while off screen to save battery and data.
+    if('IntersectionObserver' in window){
+      new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) attempt(); else video.pause();
+        });
+      }, {threshold: 0.2}).observe(video);
+    }
   })();
 
   document.querySelectorAll('.faq-q').forEach(btn => {
