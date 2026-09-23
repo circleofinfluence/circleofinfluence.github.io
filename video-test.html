@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video diagnostic</title>
+<style>
+  body{font-family:system-ui,sans-serif; max-width:760px; margin:0 auto; padding:24px; line-height:1.5;}
+  h1{font-size:20px;}
+  video{width:100%; background:#eee; border:1px solid #ccc; border-radius:8px;}
+  #log{font-family:ui-monospace,monospace; font-size:13px; background:#f4f4f4;
+       padding:14px; border-radius:8px; white-space:pre-wrap; margin-top:16px;}
+  .ok{color:#0a7d2b;} .bad{color:#b3261e;}
+  a{color:#0b57d0;}
+</style>
+</head>
+<body>
+
+<h1>Video diagnostic</h1>
+<p>This page loads <code>demo-video.mp4</code> from the same folder, with normal controls.</p>
+
+<video id="v" controls muted playsinline preload="auto" poster="demo-poster.jpg">
+  <source src="demo-video.mp4" type="video/mp4">
+</video>
+
+<p><a href="demo-video.mp4">Open demo-video.mp4 directly</a> &nbsp;|&nbsp;
+   <a href="demo-poster.jpg">Open demo-poster.jpg directly</a></p>
+
+<div id="log">Running checks…</div>
+
+<script>
+const v = document.getElementById('v');
+const log = document.getElementById('log');
+const lines = [];
+function say(msg, cls){
+  lines.push(cls ? `<span class="${cls}">${msg}</span>` : msg);
+  log.innerHTML = lines.join('\n');
+}
+
+say('Page URL: ' + location.href);
+
+// 1. Can the browser fetch the file at all?
+fetch('demo-video.mp4', {method:'GET', headers:{'Range':'bytes=0-1023'}})
+  .then(r => {
+    say('HTTP status: ' + r.status + (r.ok ? '  ✓ file found' : '  ✗ FILE NOT FOUND'), r.ok ? 'ok' : 'bad');
+    say('Content-Type: ' + (r.headers.get('content-type') || '(none)'));
+    const len = r.headers.get('content-length');
+    if(len) say('Bytes served in range request: ' + len);
+    return r.arrayBuffer();
+  })
+  .then(buf => {
+    const head = new Uint8Array(buf.slice(0, 16));
+    const sig = Array.from(head.slice(4, 8)).map(b => String.fromCharCode(b)).join('');
+    say('File signature: "' + sig + '"' + (sig === 'ftyp'
+      ? '  ✓ real MP4' : '  ✗ NOT an MP4 (may be an HTML error page or Git LFS pointer)'),
+      sig === 'ftyp' ? 'ok' : 'bad');
+  })
+  .catch(e => say('Fetch failed: ' + e.message, 'bad'));
+
+// 2. What does the video element itself report?
+v.addEventListener('loadedmetadata', () => {
+  say('Video metadata loaded ✓  ' + v.videoWidth + '×' + v.videoHeight +
+      ', ' + v.duration.toFixed(1) + 's', 'ok');
+});
+v.addEventListener('canplay', () => say('Browser says it can play this file ✓', 'ok'));
+v.addEventListener('error', () => {
+  const codes = {1:'aborted', 2:'network error', 3:'decode error',
+                 4:'SOURCE NOT SUPPORTED or not found'};
+  const err = v.error;
+  say('Video element error: ' + (err ? (codes[err.code] || err.code) : 'unknown'), 'bad');
+});
+v.querySelector('source').addEventListener('error', () => {
+  say('The <source> failed to load — wrong path, wrong filename, or 404.', 'bad');
+});
+
+// 3. Does autoplay work here?
+setTimeout(() => {
+  v.play().then(() => {
+    say('Autoplay succeeded ✓ — playback is not being blocked.', 'ok');
+    v.pause(); v.currentTime = 0;
+  }).catch(err => {
+    say('Autoplay blocked: ' + err.name + ' — ' + err.message, 'bad');
+  });
+}, 1500);
+</script>
+
+</body>
+</html>
