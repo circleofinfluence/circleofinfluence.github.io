@@ -85,12 +85,16 @@
   /* ---- Hero ---- */
   .hero{
     max-width:var(--max); margin:0 auto; padding:80px 28px 50px;
-    display:grid; grid-template-columns: 1fr 1fr; gap:44px; align-items:center;
+    text-align:center;
   }
-  .hero h1{font-size:52px; margin:16px 0 20px;}
+  .hero h1{font-size:52px; margin:16px auto 0; max-width:780px;}
   .hero h1 em{font-style:italic; color:var(--gold);}
-  .hero p.sub{font-size:19px; color:var(--ink-soft); max-width:520px; margin-bottom:0;}
+  .hero p.sub{
+    font-size:19px; color:var(--ink-soft);
+    max-width:620px; margin:30px auto 0;
+  }
   .hero-video{
+    max-width:860px; margin:38px auto 0;
     aspect-ratio:16 / 9;
     background:var(--paper);
     border:1px solid var(--card-line);
@@ -192,12 +196,11 @@
   footer .footer-links a:hover{color:var(--gold); border-bottom-color:var(--gold);}
 
   @media (max-width: 860px){
-    .hero{grid-template-columns:1fr; text-align:center;}
-    .hero p.sub{margin-inline:auto;}
     .get-grid{grid-template-columns:1fr;}
     .route{grid-template-columns:1fr; gap:36px;}
     .route::before{display:none;}
     .hero h1{font-size:36px;}
+    .hero{padding-top:56px;}
   }
 </style>
 </head>
@@ -205,11 +208,8 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div>
-    <span class="eyebrow">Content Publishing System</span>
-    <h1>Publish your content in <em>seconds</em>, not hours</h1>
-    <p class="sub">Circle of Influence takes your content and publishes it across every platform that matters, with a real person checking every post before it goes live. We handle the busywork. You take your time back.</p>
-  </div>
+  <span class="eyebrow">Content Publishing System</span>
+  <h1>Publish your content in <em>seconds</em>, not hours</h1>
   <div class="hero-video">
     <video
       id="coi-demo"
@@ -220,6 +220,7 @@
       <source src="demo-video.mp4" type="video/mp4">
     </video>
   </div>
+  <p class="sub">Circle of Influence takes your content and publishes it across every platform that matters, with a real person checking every post before it goes live. We handle the busywork. You take your time back.</p>
 </section>
 
 <!-- WHAT YOU GET / HOW YOU GET IT -->
